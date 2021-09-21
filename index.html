@@ -1,21 +1,25 @@
 <html><body>
     
-    <!-- <script type="module" src="dxftemplate.js"></script> -->
-    <!-- <button type="button" onclick="writeFile('1.dxf')">Кликни меня</button> -->
+  <div id="parentId">
+    <div>
+      <nobr><input name="name[1]" type="text" style="width:300px;" />
+      <select size="1" name="type[1]" style="width:150px;">
+        <option value="text">Текстовое поле</option>
+        <option value="int">Целое число</option>
+        <option value="float">Число-цена</option>
+      </select>
+      <a style="color:red;" onclick="return deleteField(this)" href="#">[—]</a>
+      <input name="url[1]" type="text" style="width:300px;" />
+      <a style="color:green;" onclick="return addField()" href="#">[+]</a></nobr>
+    </div>
+  </div>
 
-    <!-- <a download="9dksk239xwd.dxf" id="test" href="#">test</a> -->
+
 
 
     <a download="hello.dxf" href='#' id="link">Загрузить</a>
 
     <script type="application/javascript" src="script.js"></script>
 
-    <!-- <a download="9dksk239xwd.txt" id="test" href="#">test</a>
-    <script type="application/javascript">
-      var type = 'data:application/octet-stream;base64, ';
-      var text = 'jxowsjsivneic';
-      var base = btoa(text);
-      var res = type + base;
-      document.getElementById('test').href = res;
-    </script> -->
+    
     </body></html>

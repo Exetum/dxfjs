@@ -1,10 +1,9 @@
-function utf8_to_b64(str) {
-	return window.btoa(unescape(encodeURIComponent(str)));
-}
+
 
 class Dxftemplate {
     
     
+
     blobheader = new Blob([
     `  0
 SECTION
@@ -2302,7 +2301,7 @@ ENTITIES
     blobentityexample = new Blob([
 `LINE
   5
-209
+${DxfEntity.GetDxfDescriptor()}
 330
 1F
 100
@@ -16996,50 +16995,132 @@ EOF`
 }
 
 
+class DxfEntity {
+
+    static DxfDescriptor = 1000;
+
+  static  GetDxfDescriptor() {
+        return this.DxfDescriptor++;
+    }
+
+         DxfLine (x_begin, y_begin, z_begin, x_end, y_end, z_end) {
+            
+
+
+        let line = new Blob([
+`LINE
+5
+${DxfEntity.GetDxfDescriptor()}
+330
+1F
+100
+AcDbEntity
+8
+0
+100
+AcDbLine
+10
+${x_begin}
+20
+${y_begin}
+30
+${z_begin}
+11
+${x_end}
+21
+${y_end}
+31
+${z_end}
+0
+` 
+    ], {type: 'text/plain'});
+
+
+            return line;
+
+
+        }
+
+}
+
 
 
 
 // import { Dxftemplate } from "./dxftemplate";
 
 
-// function myFunction() {
-//     var type = 'data:application/octet-stream;base64, ';
-//     var dxfobj = new Dxftemplate;
-//     var text = dxfobj.header + dxfobj.entityexample + dxfobj.footer;
-//     var base = text;
-//     var res = type + base;
-//     document.getElementById('test').href = res;
-// }
-
-// myFunction();
-
-// function writeFile(name) {
-
-//     var dxfobj = new Dxftemplate;
-//     var text = dxfobj.header + dxfobj.entityexample + dxfobj.footer;
-
-//     var val = text;
-//     if (val === undefined) {
-//     val = "";
-//     }
-//     var download = document.createElement("a");
-//     download.href = "data:application/octet-stream;base64; filename=file " + val;
-//     // download.href = "data:text/plain;content-disposition=attachment;filename=file," + val;
-//     download.download = name;
-//     download.style.display = "none";
-//     download.id = "download"; document.body.appendChild(download);
-//     document.getElementById("download").click();
-//     document.body.removeChild(download);
-// }
 
 
 
-var dxfobj = new Dxftemplate;
+var dxftempl = new Dxftemplate;
+
+let dxfentarray = [dxftempl.blobheader] ;
 
 
-let blob = new Blob([dxfobj.blobheader,dxfobj.blobentityexample,dxfobj.blobfooter], {type: 'text/plain'});
+
+
+for(let i =0; i<10; i++)
+{
+    var dxfent = new DxfEntity;
+    var dxfline = dxfent.DxfLine(100.0*i, 100.0, 0.0, 100.0*i, 200.0, 0.0);
+
+    dxfentarray.push(dxfline);
+}
+dxfentarray.push(dxftempl.blobfooter);
+
+
+// var dxfent = new DxfEntity;
+// var dxfline = dxfent.DxfLine(0.0, 100.0, 0.0, 0.0, 200.0, 0.0);
+
+
+
+
+
+
+// let blob = new Blob([dxftempl.blobheader,dxftempl.blobentityexample,dxftempl.blobfooter], {type: 'text/plain'});
+// let blob = new Blob([dxftempl.blobheader,dxfentarray, dxftempl.blobfooter], {type: 'text/plain'});
+let blob = new Blob(dxfentarray, {type: 'text/plain'});
 
 let el = document.getElementById("link");
 el.href = URL.createObjectURL(blob);
 
 
+///////////////////////
+//Работа с формой
+///////////////////////
+
+var countOfFields = 1; // Текущее число полей
+var curFieldNameId = 1; // Уникальное значение для атрибута name
+var maxFieldLimit = 25; // Максимальное число возможных полей
+function deleteField(a) {
+  if (countOfFields > 1)
+  {
+ // Получаем доступ к ДИВу, содержащему поле
+ var contDiv = a.parentNode;
+ // Удаляем этот ДИВ из DOM-дерева
+ contDiv.parentNode.removeChild(contDiv);
+ // Уменьшаем значение текущего числа полей
+ countOfFields--;
+ }
+ // Возвращаем false, чтобы не было перехода по сслыке
+ return false;
+}
+function addField() {
+ // Проверяем, не достигло ли число полей максимума
+ if (countOfFields >= maxFieldLimit) {
+ alert("Число полей достигло своего максимума = " + maxFieldLimit);
+ return false;
+ }
+ // Увеличиваем текущее значение числа полей
+ countOfFields++;
+ // Увеличиваем ID
+ curFieldNameId++;
+ // Создаем элемент ДИВ
+ var div = document.createElement("div");
+ // Добавляем HTML-контент с пом. свойства innerHTML
+ div.innerHTML = "<nobr><input name=\"name[" + curFieldNameId + "]\" type=\"text\" style=\"width:300px;\" /> <select size=\"1\" name=\"type[" + curFieldNameId + "]\" style=\"width:150px;\"><option value=\"text\">Текстовое поле</option><option value=\"int\">Целое число</option><option value=\"float\">Число-цена</option></select> <a style=\"color:red;\" onclick=\"return deleteField(this)\" href=\"#\">[—]</a> <input name=\"url[" + curFieldNameId + "]\" type=\"text\" style=\"width:300px;\" /> <a style=\"color:green;\" onclick=\"return addField()\" href=\"#\">[+]</a></nobr>";
+ // Добавляем новый узел в конец списка полей
+ document.getElementById("parentId").appendChild(div);
+ // Возвращаем false, чтобы не было перехода по сслыке
+ return false;
+}
