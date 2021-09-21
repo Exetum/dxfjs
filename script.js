@@ -17046,43 +17046,54 @@ ${z_end}
 
 
 
-// import { Dxftemplate } from "./dxftemplate";
 
 
 
 
 
-var dxftempl = new Dxftemplate;
-
-let dxfentarray = [dxftempl.blobheader] ;
-
-
+//Использовать код если нужно использовать ссылку типа <a> с id="link" вместо кнопки button
+// let el = document.getElementById("link");
+// el.href = URL.createObjectURL(blob);
 
 
-for(let i =0; i<10; i++)
-{
-    var dxfent = new DxfEntity;
-    var dxfline = dxfent.DxfLine(100.0*i, 100.0, 0.0, 100.0*i, 200.0, 0.0);
 
-    dxfentarray.push(dxfline);
+function  download() {
+    let i1 = document.getElementById("input1");
+    let t = i1.value;
+
+
+    var dxftempl = new Dxftemplate;
+
+    let dxfentarray = [dxftempl.blobheader] ;
+
+
+
+
+    for(let i =0; i<t; i++)
+    {
+        var dxfent = new DxfEntity;
+        var dxfline = dxfent.DxfLine(100.0*i, 100.0, 0.0, 100.0*i, 200.0, 0.0);
+
+        dxfentarray.push(dxfline);
+    }
+    dxfentarray.push(dxftempl.blobfooter);
+
+
+
+
+    let blob = new Blob(dxfentarray, {type: 'text/plain'});
+
+    let a = document.createElement("a");
+    let file = blob;
+    a.href = URL.createObjectURL(file);
+    a.download = "example.dxf";
+    a.click();
+
+
+  
+
 }
-dxfentarray.push(dxftempl.blobfooter);
 
-
-// var dxfent = new DxfEntity;
-// var dxfline = dxfent.DxfLine(0.0, 100.0, 0.0, 0.0, 200.0, 0.0);
-
-
-
-
-
-
-// let blob = new Blob([dxftempl.blobheader,dxftempl.blobentityexample,dxftempl.blobfooter], {type: 'text/plain'});
-// let blob = new Blob([dxftempl.blobheader,dxfentarray, dxftempl.blobfooter], {type: 'text/plain'});
-let blob = new Blob(dxfentarray, {type: 'text/plain'});
-
-let el = document.getElementById("link");
-el.href = URL.createObjectURL(blob);
 
 
 ///////////////////////

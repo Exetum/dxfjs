@@ -2,7 +2,7 @@
     
   <div id="parentId">
     <div>
-      <nobr><input name="name[1]" type="text" style="width:300px;" />
+      <nobr><input name="name[1]" type="text" style="width:300px;" id="input1" value="10"/>
       <select size="1" name="type[1]" style="width:150px;">
         <option value="text">Текстовое поле</option>
         <option value="int">Целое число</option>
@@ -16,9 +16,10 @@
 
 
 
+    <!-- Если нужна ссылка а не кнопка -->
+    <!-- <a download="hello.dxf" href='#' id="link">Загрузить</a> -->
 
-    <a download="hello.dxf" href='#' id="link">Загрузить</a>
-
+    <button onclick="download()",type="Submit">Download DXF file</button>
     <script type="application/javascript" src="script.js"></script>
 
     
