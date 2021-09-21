@@ -1,5 +1,9 @@
+function utf8_to_b64(str) {
+	return window.btoa(unescape(encodeURIComponent(str)));
+}
+
 class Dxftemplate {
-    header = `  0
+    header = utf8_to_b64(`  0
     SECTION
       2
     HEADER
@@ -2285,9 +2289,9 @@ class Dxftemplate {
     SECTION
       2
     ENTITIES
-      0`
+      0`)
 
-footer =`ENDSEC
+footer = utf8_to_b64 (`ENDSEC
 0
 SECTION
 2
@@ -16947,9 +16951,9 @@ RTVSPost2010PropOp57
 0
 ENDSEC
 0
-EOF`
+EOF`)
 
-   entityexample = `LINE
+   entityexample =  utf8_to_b64( `LINE
    5
  209
  330
@@ -16972,7 +16976,7 @@ EOF`
  1591.560494601655
   31
  0.0
-   0`
+   0`)
 }
 
 // import { Dxftemplate } from "./dxftemplate";
