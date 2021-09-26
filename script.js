@@ -17198,7 +17198,7 @@ function  download() {
         var dxfent = new DxfEntity;
         var dxfcircle = dxfent.DxfCircle(100.0*i, 100.0, 0.0, 100.0*i);
 
-        dxfentarray.push(dxfcircle);
+        dxfentarray.push(dxfcircle); 
     }
 
 
