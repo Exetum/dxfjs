@@ -17184,22 +17184,22 @@ function  download() {
 
 
     //Создание отрезков:
-    // for(let i =0; i<t; i++)
-    // {
-    //     var dxfent = new DxfEntity;
-    //     var dxfline = dxfent.DxfLine(100.0*i, 100.0, 0.0, 100.0*i, 200.0, 0.0);
+    for(let i =0; i<t; i++)
+    {
+        var dxfent = new DxfEntity;
+        var dxfline = dxfent.DxfLine(100.0*i, 100.0, 0.0, 100.0*i, 200.0, 0.0);
 
-    //     dxfentarray.push(dxfline);
-    // }
+        dxfentarray.push(dxfline);
+    }
 
     //Создание кругов:
-    // for(let i =0; i<t; i++)
-    // {
-    //     var dxfent = new DxfEntity;
-    //     var dxfcircle = dxfent.DxfCircle(100.0*i, 100.0, 0.0, 100.0*i);
+    for(let i =0; i<t; i++)
+    {
+        var dxfent = new DxfEntity;
+        var dxfcircle = dxfent.DxfCircle(100.0*i, 100.0, 0.0, 100.0*i);
 
-    //     dxfentarray.push(dxfcircle);
-    // }
+        dxfentarray.push(dxfcircle);
+    }
 
 
     //Создание дуг
@@ -17212,13 +17212,13 @@ function  download() {
     // }
 
     //Создание текстов
-    for(let i =0; i<t; i++)
-    {
-        var dxfent = new DxfEntity;
-        var dxftext = dxfent.DxfText(100.0, 100.0*i, 0.0, 100.0*i, "text "+i);
+    // for(let i =0; i<t; i++)
+    // {
+    //     var dxfent = new DxfEntity;
+    //     var dxftext = dxfent.DxfText(100.0, 100.0*i, 0.0, 100.0*i, "text "+i);
 
-        dxfentarray.push(dxftext);
-    }
+    //     dxfentarray.push(dxftext);
+    // }
 
 
 
