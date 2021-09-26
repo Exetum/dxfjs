@@ -17203,22 +17203,22 @@ function  download() {
 
 
     //Создание дуг
-    // for(let i =0; i<t; i++)
-    // {
-    //     var dxfent = new DxfEntity;
-    //     var dxfarc = dxfent.DxfArc(100.0*i, 100.0, 0.0, 100.0*i, 90, 270);
+    for(let i =0; i<t; i++)
+    {
+        var dxfent = new DxfEntity;
+        var dxfarc = dxfent.DxfArc(100.0*i, 1000.0, 0.0, 100.0*i, 90, 270);
 
-    //     dxfentarray.push(dxfarc);
-    // }
+        dxfentarray.push(dxfarc);
+    }
 
     //Создание текстов
-    // for(let i =0; i<t; i++)
-    // {
-    //     var dxfent = new DxfEntity;
-    //     var dxftext = dxfent.DxfText(100.0, 100.0*i, 0.0, 100.0*i, "text "+i);
+    for(let i =0; i<t; i++)
+    {
+        var dxfent = new DxfEntity;
+        var dxftext = dxfent.DxfText(100.0, 500.0*i, 0.0, 100.0, "text "+i);
 
-    //     dxfentarray.push(dxftext);
-    // }
+        dxfentarray.push(dxftext);
+    }
 
 
 
